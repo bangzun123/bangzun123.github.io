@@ -3,17 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的影音空間</title>
+    <title>給阿瘦</title>
     <style>
-        /* 直接把樣式寫在這裡，確保一定讀得到 */
         body {
-            background-color: #000000;
-            font-family: "Microsoft JhengHei", sans-serif;
+            background-image: url('1background.jpg'); 
+            background-attachment: fixed; 
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            background-color: #646464; 
+            color: #fff;
+            font-family: sans-serif;
             margin: 0;
-            font-size: 18px;
-            color: #ffffff;
-            overflow-x: hidden;
         }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5); 
+            z-index: -1;
+        }
+
+        .main-title {
+            font-size: 4rem;              /* 大小調整，可根據喜好修改 */
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 60px;
+            
+            /* 藍色系漸層 */
+            background: linear-gradient(to bottom, #70dcf5, #4d8ee9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            /* 微弱陰影，增加立體感 */
+            filter: drop-shadow(0px 4px 8px rgba(0, 174, 255, 0.342));
+        }
+
+        /* 針對手機版自動縮小一點點，避免破版 */
+        @media (max-width: 600px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* 專門給「凋零」的紅橘漸層 */
+        .die-text {
+            font-size: 2.5rem;   /* 大小調整 */
+            font-weight: 900;    /* 極粗體，漸層才明顯 */
+            
+            /* 核心漸層代碼 */
+            background: linear-gradient(to right, #f7b7fd, #fd0094); 
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            display: inline-block; /* 避免分割的關鍵 */
+            letter-spacing: 4px;   /* 字距加寬更有質感 */
+        }
+
+        /* 單一字串的漸層顏色 */
+        .gradient-text {
+            /* 這裡你可以調整顏色和漸層方向 */
+            background: linear-gradient(90deg, #363636, #ffffff); /* 從紅到橘的漸層 */
+            -webkit-background-clip: text; /* 讓漸層只在文字內部顯示 */
+            -webkit-text-fill-color: transparent; /* 讓文字本身的顏色透明，顯示出漸層 */
+            font-weight: bold; /* 讓漸層文字更顯眼 */
+        }
+
+        /* --- 這裡新增了數字放大的樣式 --- */
+        .special-date {
+            display: block;
+            font-size: 32px; /* 放大字體 */
+            font-weight: 900;
+            margin: 15px 0;
+            /* 套用漸層色 */
+            background: linear-gradient(45deg, #3a3939, #a1a8ac);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        /* 讓所有 Chapter 標題變大一點點 */
+        .content-card h2, .content-card h3 {
+            font-size: 4.8rem;    /* 原本約 1.5rem，現在加大到 1.8rem */
+            color: #ffffff;       /* 統一成淡藍色，跟「夢開始的地方」呼應 */
+            margin-bottom: 55px;  /* 標題跟下方影片/圖片的距離 */
+            font-weight: bold;
+        }
+        
 
         #welcome-screen {
             height: 100vh;
@@ -31,7 +107,6 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.5);
         }
 
-        /* 進入前的漸層文字顏色 */
         .welcome-card h1 {
             background: linear-gradient(45deg, #ffffff, #ffffff);
             -webkit-background-clip: text;
@@ -86,7 +161,6 @@
             margin-bottom: 20px;
         }
 
-        /* 音量控制面板 */
         #fixed-music-player {
             position: fixed;
             bottom: 30px;
@@ -98,12 +172,29 @@
             display: flex;
             align-items: center;
             background: rgba(40, 40, 40, 0.9);
-            padding: 12px 20px;
+            padding: 15px 25px;
             border-radius: 50px;
             gap: 15px;
         }
 
-        .volume-slider { width: 80px; cursor: pointer; }
+        .volume-slider {
+            width: 120px;
+            height: 15px;
+            cursor: pointer;
+            -webkit-appearance: none;
+            background: #444;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 25px; 
+            height: 25px;
+            background: #1a73e8;
+            border-radius: 50%;
+            cursor: pointer;
+        }
 
         .floating-mute-btn {
             background-color: #1a73e8;
@@ -127,7 +218,7 @@
 
     <div id="main-content" class="hidden">
         <div class="main-container">
-            <h1 style="color: #00aeff;">夢開始的地方</h1>
+            <h1 class="main-title">夢開始的地方</h1>
             
             <section class="content-card scroll-reveal">
                 <h2>陳品佑</h2>
@@ -135,7 +226,9 @@
                     <video class="autoplay-video" width="100%" muted loop playsinline>
                         <source src="video.mp4" type="video/mp4">
                     </video>
-                    <p>2004/8/20-2025/12/23</p>
+                    <p><span class="special-date">2004/8/20-2025/12/23</span></p>
+                    <p>親愛的陳品佑先生:<br>
+                    我早上起來還是一樣在和你的聊天室看著聊天紀錄，不曉得你現在吃了沒、睡了沒，我只想跟你說一聲，我們很想你，我們愛你。</p>
                 </div>
             </section>
 
@@ -150,15 +243,55 @@
             </section>
 
             <section class="content-card scroll-reveal">
-                <h3>Chapter 周遊</h3>
+                <h3>Chapter 出遊</h3>
                 <div class="video-wrapper">
                     <video class="autoplay-video" width="100%" muted loop playsinline>
                         <source src="video2.mp4" type="video/mp4">
                     </video>
                 </div>
-                 <p>他的愛好除了打遊戲、看影片，更多的就是和朋友們出門。</p>
-                 <p>在2022年的暑假，品佑也和大家計畫出門，而他最喜歡行程絕對就是進KTV裡面和大家歌唱。</p>
-                </p>(上影片為2022暑假眾人合唱影片，錄影人為品佑)</p>
+                <p>他的愛好除了打遊戲、看影片，更多的就是和朋友們出門。</p>
+                <p>在2022年的暑假，品佑也和大家計畫出門，而他最喜歡行程絕對就是進KTV裡面和大家歌唱。</p>
+                <p>(上影片為2022暑假眾人合唱影片，錄影人為品佑)</p>
+            </section>
+
+            <section class="content-card scroll-reveal">
+                <div class="video-wrapper">
+                    <video class="autoplay-video" width="100%" muted loop playsinline>
+                        <source src="video3.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p>當初第一次一起烤肉時，永遠記得你那時喝的爛醉的樣子。</p>
+            </section>
+
+            <section class="content-card scroll-reveal">
+                <div class="image-wrapper">
+                    <img src="taipei.jpg" alt="我的照片">
+                </div>
+                <p>在2023年的暑假，是第二次大家集體上北部玩4天，名為[台北行]</p>
+                <p>雖然當時你因為太累沒跟到行程，不過大家在結束時，所有人都很想念這4天</p>
+            </section>
+
+            <section class="content-card scroll-reveal">
+                <h2>Chapter 凋零</h2>
+                <div class="image-wrapper">
+                    <img src="bye.jpg" alt="我的照片">
+                </div>
+                <p>自從台北行之後，你的身體狀況急轉直下，從原先的肺積水到後來心臟衰竭，一次都比一次悽慘</p>
+                <p>但能出院時你都能和我們打遊戲和出去玩，即便你說想結束，但後來還是堅持了下來</p>
+                <p>不過這一次真的不行了，但是大家都知道你受了什麼苦，所以這次，我們只好說再見了</p>
+            </section>
+
+            <section class="content-card scroll-reveal">
+                    <h4><span class="die-text">SAY GOODBYE</span></h4>
+                    <div class="video-wrapper">
+                        <video class="autoplay-video" width="100%" muted loop playsinline>
+                            <source src="video4.mp4" type="video/mp4"> </video>
+                    </div>
+                <p>從Minecraft開始，再到鬥陣特攻、虹彩六號、ROBLOX、英雄聯盟的你，不單單只是一位朋友</p>
+                <p>而是一個在我們大家生命之中那一顆閃耀的星，即使你現在已不再，關於你的回憶都在我們心中記下</p>
+                <p>希望在下一世，你可以有一副健康的好身體，下輩子，希望我們來世可以再當好麻吉，下輩子要快樂、沒煩惱、不痛苦的活著</p>
+                <p>我們愛您，珍重再見</p>
+                <p>-江秉謙 2025/12/28著</p>
             </section>
 
             <footer>
@@ -180,29 +313,29 @@
         const mainContent = document.getElementById('main-content');
         const musicPlayer = document.getElementById('fixed-music-player');
         const enterBtn = document.getElementById('enterBtn');
-        const music = document.getElementById('bgMusic');
         const allVideos = document.querySelectorAll('.autoplay-video');
-        const volumeSlider = document.getElementById('volumeSlider');
         const muteBtn = document.getElementById('muteBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const bgMusic = document.getElementById('bgMusic'); 
 
-        music.volume = 0.5;
+        bgMusic.volume = 0.5;
 
         enterBtn.addEventListener('click', function() {
             welcomeScreen.style.display = 'none';
             mainContent.classList.remove('hidden');
             musicPlayer.classList.remove('hidden');
-            music.play();
+            bgMusic.play();
             allVideos.forEach(v => v.play());
             handleScroll();
         });
 
         volumeSlider.addEventListener('input', function() {
-            music.volume = this.value;
+            bgMusic.volume = this.value;
         });
 
         muteBtn.addEventListener('click', function() {
-            music.muted = !music.muted;
-            muteBtn.innerText = music.muted ? "開啟 🔈" : "靜音 🔇";
+            bgMusic.muted = !bgMusic.muted;
+            muteBtn.innerText = bgMusic.muted ? "開啟 🔈" : "靜音 🔇";
         });
 
         const revealElements = document.querySelectorAll('.scroll-reveal');
